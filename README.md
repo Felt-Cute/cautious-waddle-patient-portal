@@ -41,4 +41,41 @@ and enhance the overall healthcare experience.
    - [] Payment history and receipt generation
 
 
-## Appointment Scheduling and Management
+## Appointment Scheduling and Management Service
+- `GET /api/appointments/available-slots`
+   - Retrieve available slots for a specific doctor on a given date.
+   - Parameters:
+   - doctorId (required): ID of the doctor
+   - date (required): Date to check available slots (format: YYYY-MM-DD)
+- `POST /api/appointments/book`
+Book an appointment for a patient.
+Request Body:
+patientId (required): ID of the patient
+slotId (required): ID of the available slot
+- `PUT /api/appointments/{id}/reschedule`
+Reschedule an existing appointment.
+Parameters:
+id (required): ID of the appointment
+Request Body:
+newSlotId (required): ID of the new available slot
+- `DELETE /api/appointments/{id}`
+Cancel an appointment.
+Parameters:
+id (required): ID of the appointment
+Database Schema
+Appointment Scheduling and Management Service
+Appointments
+id (Primary key)
+patient_id (Foreign key to Patients table)
+doctor_id (Foreign key to Doctors table)
+appointment_time (DateTime)
+status (ENUM: 'SCHEDULED', 'CANCELLED', 'COMPLETED')
+appointment_type (VARCHAR)
+created_at (DateTime)
+AvailableSlots
+id (Primary key)
+doctor_id (Foreign key to Doctors table)
+start_time (DateTime)
+end_time (DateTime)
+is_booked (BOOLEAN)
+created_at (DateTime)
